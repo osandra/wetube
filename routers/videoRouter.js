@@ -8,7 +8,6 @@ import {
     deleteVideo
 } from "../controllers/videoController";
 const videoRouter = express.Router();
-
 videoRouter.get(routes.videos,videos);
 videoRouter.get(routes.upload,upload);
 videoRouter.get(routes.editVideo,editVideo);

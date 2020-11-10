@@ -1,9 +1,10 @@
 import routes from "../routes";
 import Video from "../models/Video"
+
 export const home = async(req,res) => {
     try{
         const videos = await Video.find({})
-        res.render("home",{pageTitle: "Home",videos:videos});
+        res.render("home",{pageTitle: "Home",videos});
     } 
     catch(error){
         console.log(error);
@@ -11,12 +12,11 @@ export const home = async(req,res) => {
     }
 };
 export const search = async (req, res)=> {
-    console.log(req.query);
+    //console.log(req.query);
     const {query: {term: searchingBy}} = req;
-    const videos = await Video.find({title:searchingBy});
-    res.render("search",{pageTitle: "Search",searchingBy,videos:videos})
+    const videos = await Video.find({title:{$regex:searchingBy,$options:"i"}});
+    res.render("search",{pageTitle: "Search",searchingBy, videos})
     };
-// export const videos = (req, res)=> res.render("videos",{pageTitle: "Videos"});
 export const getUpload = (req, res)=> {
     res.render("upload",{pageTitle: "Upload"})
 };
@@ -30,9 +30,8 @@ export const postUpload = async (req,res)=> {
         title,
         description
     });
-    console.log(routes.videoDetail(newVideo.id)); // videos/5fa89db8eddd9560fc44dc90
-    res.redirect(routes.videoDetail(newVideo.id)); /// videos/videos/5fa89db8eddd9560fc44dc90
-    // res.redirect(routes.home);
+    console.log(routes.videoDetail(newVideo.id)); 
+    res.redirect(routes.videoDetail(newVideo.id));
 };
 
 export const getEditVideo = async (req, res)=> {
@@ -62,7 +61,18 @@ export const postEditVideo = async (req, res)=> {
     }
 };
 
-export const deleteVideo = (req, res)=> res.render("deleteVideo",{pageTitle: "Delete Video"});
+export const deleteVideo = async(req, res)=> {
+    const {
+        params: {id}
+    } = req;
+    try {
+        await Video.findOneAndDelete({_id:id});
+    }
+    catch(error){
+        console.log(error);
+    }
+    res.redirect(routes.home);
+};
 
 export const videoDetail = async(req, res)=> {
     const {
@@ -71,7 +81,7 @@ export const videoDetail = async(req, res)=> {
     console.log(req.params);
     try{
         const video = await Video.findById(id);
-        res.render("videoDetail",{pageTitle: "Video Detail",video});
+        res.render("videoDetail",{pageTitle:video.title,video});
     } catch(error) {
         console.log(error);
         res.redirect(routes.home);

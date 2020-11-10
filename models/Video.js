@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+
 const videoSchema = new mongoose.Schema({
     fileUrl:{
         type: String,

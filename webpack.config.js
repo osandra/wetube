@@ -1,5 +1,4 @@
 const path = require("path");
-// const ExtractCSS = require("extract-text-webpack-plugin");
 const autoprefixer = require("autoprefixer");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
@@ -8,7 +7,7 @@ const ENTRY_FILE = path.resolve(__dirname,"assets","js","main.js");
 const OUTPUT_DIR = path.join(__dirname,"static")
 
 const config = {
-    entry: ENTRY_FILE,
+    entry: [ENTRY_FILE],
     mode:MODE,
     output: {
         path: OUTPUT_DIR,
@@ -16,6 +15,14 @@ const config = {
     },
     module:{
         rules:[
+            {
+                test: /\.(js)$/,
+                use: [
+                    {
+                        loader:"babel-loader"
+                    },
+                ]
+            },
             {
             test: /\.(scss)$/,
             use: [
@@ -39,7 +46,7 @@ const config = {
     },
     plugins:[
         new MiniCssExtractPlugin({
-            filename: "style.css"
+            filename: "styles.css"
         })
     ]
 };

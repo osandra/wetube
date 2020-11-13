@@ -16,10 +16,23 @@
   \***************************/
 /*! namespace exports */
 /*! exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _scss_styles_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../scss/styles.scss */ \"./assets/scss/styles.scss\");\n\n\n//# sourceURL=webpack://wetube/./assets/js/main.js?");
+
+/***/ }),
+
+/***/ "./assets/scss/styles.scss":
+/*!*********************************!*\
+  !*** ./assets/scss/styles.scss ***!
+  \*********************************/
+/*! namespace exports */
+/*! exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\nObject(function webpackMissingModule() { var e = new Error(\"Cannot find module '../scss/styles.scss'\"); e.code = 'MODULE_NOT_FOUND'; throw e; }());\n;\n\n//# sourceURL=webpack://wetube/./assets/js/main.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extract-plugin\n\n\n//# sourceURL=webpack://wetube/./assets/scss/styles.scss?");
 
 /***/ })
 

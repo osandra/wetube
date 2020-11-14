@@ -7,7 +7,7 @@ res.locals.siteName = "Wetube";
 res.locals.routes = routes;
 //fake
 res.locals.user = {
-    isAuthenticated:true,
+    isAuthenticated:false,
     id:1
 }
 next();

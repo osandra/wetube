@@ -1,4 +1,7 @@
 @import "./config/variables.scss";
-body {
-  background-color: $pointColor;
-}
+@import "./config/reset.scss";
+@import "./main.scss";
+@import "./partials/header.scss";
+@import "./partials/footer.scss";
+@import "./partials/socialLogin.scss";
+@import "./partials/form.scss";

@@ -13,7 +13,10 @@ export const postJoin = async (req,res,next) => {
     } else {
         try {
             //Create User
-            const user = await User.create({name,email});
+            const user = await User({
+                name,
+                email
+            });
             //Register user
             await User.register(user,password);
             next();

@@ -34,9 +34,43 @@ export const postLogin = passport.authenticate("local",{
     successRedirect: routes.home
 });
 
-export const logout = (req, res)=> {
+export const githubLogin = passport.authenticate("github");
+
+// export const githubLoginCallback = (acessToken, refreshToken, profile, cb)=>{
+//     console.log(acessToken, refreshToken, profile, cb);
+// };
+export const postGithubLogin = (req,res) =>{
     res.redirect(routes.home)
 };
+
+export const githubLoginCallback = async (_, __, profile, cb)=>{
+    const {
+        // eslint-disable-next-line camelcase
+        _json: { id,avatar_url, name,email }
+      } = profile;
+      try {
+        const user = await User.findOne({ email });
+        if (user) {
+          user.githubId = id;
+          user.save();
+          return cb(null, user);
+        }
+        const newUser = await User.create({
+          email,
+          name,
+          githubId: id,
+          avataUrl: avatar_url
+        });
+        return cb(null, newUser);
+      } catch (error) {
+            return cb(error);
+      }
+};
+export const logout = (req,res) => {
+    req.logout();
+    res.redirect(routes.home);
+};
+
 export const users = (req, res) => res.render("users",{pageTitle: "Users"});
 export const editProfile = (req, res) => res.render("editProfile",{pageTitle: "Edit Profile"});
 export const changePassword = (req, res) => res.render("changePassword",{pageTitle: "Change Password"});

@@ -36,17 +36,13 @@ export const postLogin = passport.authenticate("local",{
 
 export const githubLogin = passport.authenticate("github");
 
-// export const githubLoginCallback = (acessToken, refreshToken, profile, cb)=>{
-//     console.log(acessToken, refreshToken, profile, cb);
-// };
 export const postGithubLogin = (req,res) =>{
     res.redirect(routes.home)
 };
 
 export const githubLoginCallback = async (_, __, profile, cb)=>{
     const {
-        // eslint-disable-next-line camelcase
-        _json: { id,avatar_url, name,email }
+        _json: { id,avatar_url:avataUrl, name,email }
       } = profile;
       try {
         const user = await User.findOne({ email });
@@ -59,7 +55,7 @@ export const githubLoginCallback = async (_, __, profile, cb)=>{
           email,
           name,
           githubId: id,
-          avataUrl: avatar_url
+          avataUrl
         });
         return cb(null, newUser);
       } catch (error) {
@@ -74,4 +70,18 @@ export const logout = (req,res) => {
 export const users = (req, res) => res.render("users",{pageTitle: "Users"});
 export const editProfile = (req, res) => res.render("editProfile",{pageTitle: "Edit Profile"});
 export const changePassword = (req, res) => res.render("changePassword",{pageTitle: "Change Password"});
-export const userDetail = (req, res) => res.render("userDetail",{pageTitle: "User Detail"});
+
+export const userDetail = async(req, res) => {
+    const {
+        params:{id}
+    } = req;
+    try{
+        const user = await User.findById(id);
+        res.render("userDetail",{pageTitle: "User Detail",user})
+    }
+    catch(error){
+        res.redirect(routes.home)
+    }
+};
+
+export const getMeProfile = (req,res) => res.render("userDetail",{pageTitle: "User Detail", user:req.user})

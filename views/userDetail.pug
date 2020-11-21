@@ -1,7 +1,7 @@
 extends layouts/main
 block content
     .user-profile
-        .user-profile__header
+        .user-profile__header      
             img.user-avatar(src=user.avataUrl img-src *)
             h4.profile__username=user.name
         if user.id === loggedUser.id

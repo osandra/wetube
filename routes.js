@@ -60,7 +60,6 @@ const routes = {
      return EDIT_VIDEO;
    }
  },
- EDIT_VIDEO,
  deleteVideo: id=>{
    if(id){
      return `/videos/${id}/delete`;

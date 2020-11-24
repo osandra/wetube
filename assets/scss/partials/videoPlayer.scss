@@ -28,6 +28,22 @@
       span:first-child {
         margin-right: 10px;
       }
+      #jsVolumnButton {
+        margin-right: 10px;
+      }
+    }
+    .videoPlayer__volume {
+      position: absolute;
+      padding: 0;
+      opacity: 1;
+      width: 80px;
+      z-index: 10;
+      transform: rotate(-90deg);
+      left: -25px;
+      top: -60px;
+      input {
+        height: 5px;
+      }
     }
     .vidoePlayer__column:last-child {
       justify-self: end;

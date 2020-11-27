@@ -1,0 +1,13 @@
+.record-container {
+  width: 100%;
+  max-width: 320px;
+  margin-bottom: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  video {
+    width: 100%;
+    background-color: black;
+    margin-bottom: 10px;
+  }
+}

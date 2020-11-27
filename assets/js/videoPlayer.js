@@ -17,7 +17,7 @@ function handlePlayButton(){
         VideoPlayer.pause();
         playBtn.innerHTML=`<i class="fas fa-play"></i>`
     }
-}
+};
 
 function handleVolumnButton(){
     if(VideoPlayer.muted){
@@ -29,7 +29,7 @@ function handleVolumnButton(){
         VideoPlayer.muted=true;
         volumnBtn.innerHTML=`<i class="fas fa-volume-mute"></i>`;
     }
-}
+};
 
 const formatDate = seconds => {
     const secondsNum = parseInt(seconds,10);
@@ -48,7 +48,6 @@ const formatDate = seconds => {
     return `${hours}:${minutes}:${totalSeconds}`;
 };
 
-console.log(VideoPlayer.duration);
 function getCurrentTime(){
     const currentTimeString = formatDate(VideoPlayer.currentTime);
     currentTime.innerHTML= currentTimeString;

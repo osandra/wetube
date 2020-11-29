@@ -13,21 +13,12 @@ const handleVideoData = event=>{
     link.click();
 }
 
-const stopRecording = ()=>{
-    videoRecord.stop();
-    recordButton.removeEventListener("click",stopRecording);
-    recordButton.addEventListener("click",getVideo);
-    recordButton.innerHTML=`Start recording`;
-}
-
 const startRecording = () =>{
     videoRecord = new MediaRecorder(streamObject);
     videoRecord.start();
     videoRecord.addEventListener("dataavailable", handleVideoData);
     recordButton.addEventListener("click",stopRecording);
 }
-
-
 
 const getVideo = async()=>{
     try{
@@ -47,6 +38,13 @@ const getVideo = async()=>{
     } finally{
         recordButton.removeEventListener("click",startRecording);
     }
+}
+
+const stopRecording = ()=>{
+    videoRecord.stop();
+    recordButton.removeEventListener("click",stopRecording);
+    recordButton.addEventListener("click",getVideo);
+    recordButton.innerHTML="Start recording";
 }
 
 function init(){

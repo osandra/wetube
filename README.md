@@ -1,14 +1,18 @@
-#wetube
-Cloning youtube with Vanilla& NodeJs
+# wetube
 
-##Pages:
-- [   ] Home
-- [ x ] Join
-- [ x ] Login
-- [ x ] Search
-- [   ] User Detail
-- [   ] Edit Profile
-- [   ] Chane Password
-- [   ] UpLoad
-- [   ] Video Detail
-- [   ] Edit Video
+## Cloning youtube with Vanilla& NodeJs
+
+---
+
+### Pages:
+
+- Home
+- Join
+- Login
+- Search
+- User Detail
+- Edit Profile
+- Change Password
+- UpLoad
+- Video Detail
+- Edit Video

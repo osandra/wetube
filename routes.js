@@ -22,6 +22,8 @@ const DELETE_VIDEO = "/:id/delete";
 //Api
 const API = "/api";
 const REGISTER_VIEW = "/:id/view";
+//comment
+const ADD_COMMENT = "/:id/comment";
 
 //Github
 const GITHUB = "/auth/github";
@@ -77,6 +79,7 @@ const routes = {
  facebook:FD,
  facebookCallback:FD_CALLBACK,
  api:API,
- registerView:REGISTER_VIEW
+ registerView:REGISTER_VIEW,
+ addComment:ADD_COMMENT
 }
 export default routes;

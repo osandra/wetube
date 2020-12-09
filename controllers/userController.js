@@ -102,7 +102,6 @@ export const getEditProfile = (req, res) =>
 res.render("editProfile",{pageTitle: "Edit Profile"});
 export const postEditProfile = async(req,res)=>{
     // console.log(req);
-    console.log(req)
     const{
         user: { _id: id },
         body:{name,email},
@@ -112,7 +111,7 @@ export const postEditProfile = async(req,res)=>{
     await User.findByIdAndUpdate(id,{name,email,
     avataUrl:file?file.path:req.user.avataUrl})
     res.redirect(routes.me);
-    console.log(User);
+    //console.log(User);
     } catch(error){
         console.log(`error is ${error}`)
         res.render("editProfile",{pageTitle: "Edit Profile"});
@@ -144,12 +143,26 @@ export const userDetail = async(req, res) => {
         params:{id}
     } = req;
     try{
-        const user = await User.findById(id).populate("videos");
-        res.render("userDetail",{pageTitle: "User Detail",user})
+        const user = await User.findById(id)
+                                .populate("videos");
+        res.render("userDetail",{pageTitle: "User Detail", user})
+        console.log(user.videos)
     }
     catch(error){
+        console.log(error);
         res.redirect(routes.home)
     }
 };
-
-export const getMeProfile = (req,res) => res.render("userDetail",{pageTitle: "User Detail", user:req.user})
+export const getMeProfile = async (req,res) =>{
+    const userId=req.user.id
+    try{
+        const user = await User.findById(userId)
+                                .populate("videos");
+        res.render("userDetail",{pageTitle: "User Detail", user})
+        console.log(user.videos)
+    }
+    catch(error){
+        console.log(error);
+        res.redirect(routes.home)
+    }
+}

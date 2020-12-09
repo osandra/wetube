@@ -17,6 +17,7 @@ function handlePlayButton(){
     }
 };
 
+
 function handleVolumnButton(){
     if(VideoPlayer.muted){
         VideoPlayer.muted=false;
@@ -91,8 +92,12 @@ const handleEnded=()=>{
     playBtn.innerHTML=`<i class="fas fa-play"></i>`;
 }
 
+const videoButtonInit = ()=>{
+    playBtn.innerHTML=`<i class="fas fa-pause"></i>`
+}
 function init(){
     VideoPlayer.volume=0.5;
+    videoButtonInit();
     playBtn.addEventListener("click",handlePlayButton);
     volumnBtn.addEventListener("click",handleVolumnButton);
     screenBtn.addEventListener("click",goFullScreen);

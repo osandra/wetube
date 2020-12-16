@@ -146,7 +146,7 @@ export const userDetail = async(req, res) => {
         const user = await User.findById(id)
                                 .populate("videos");
         res.render("userDetail",{pageTitle: "User Detail", user})
-        console.log(user.videos)
+        //console.log(user.videos)
     }
     catch(error){
         console.log(error);
@@ -159,7 +159,7 @@ export const getMeProfile = async (req,res) =>{
         const user = await User.findById(userId)
                                 .populate("videos");
         res.render("userDetail",{pageTitle: "User Detail", user})
-        console.log(user.videos)
+        //console.log(user.videos)
     }
     catch(error){
         console.log(error);

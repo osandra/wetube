@@ -3,6 +3,8 @@
   grid-template-columns: repeat(6, minmax(150px, 1fr));
   grid-gap: 30px;
   .videoBlock {
+    max-width: 300px;
+    overflow: hidden;
     &:hover {
       border: none;
       background: #bb2f2a;
@@ -16,13 +18,13 @@
     }
   }
   .videoBlock:first-child,
-  .videoBlock:nth-child(2) {
-    grid-column: span 3;
-  }
-  .videoBlock:nth-child(3),
+  .videoBlock:nth-child(2),
+     .videoBlock:nth-child(3),
   .videoBlock:nth-child(4),
   .videoBlock:nth-child(5) {
     grid-column: span 2;
+    overflow: hidden;
+    width: 100%;
     video {
       max-height: 300px;
       overflow: hidden;

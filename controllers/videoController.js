@@ -2,6 +2,8 @@ import routes from "../routes";
 import Video from "../models/Video";
 import Comment from "../models/Comment";
 
+const alert = require('alert');  
+
 export const home = async(req,res) => {
     try{
         const videos = await Video.find({})
@@ -13,7 +15,6 @@ export const home = async(req,res) => {
     }
 };
 export const search = async (req, res)=> {
-    //console.log(req.query);
     const {query: {term: searchingBy}} = req;
     const videos = await Video.find({title:{$regex:searchingBy,$options:"i"}});
     res.render("search",{pageTitle: "Search",searchingBy, videos})
@@ -34,7 +35,6 @@ export const postUpload = async (req,res)=> {
     });
     req.user.videos.push(newVideo.id);
     req.user.save()
-    // console.log(routes.videoDetail(newVideo.id)); 
     res.redirect(routes.videoDetail(newVideo.id));
 };
 
@@ -95,7 +95,13 @@ export const videoDetail = async(req, res)=> {
     try{
         const video = await Video.findById(id)
                             .populate("creator")
-                            .populate("comments");
+                            .populate({
+                                path: "comments",
+                                populate: {
+                               path: "creator"
+                                }
+                              });
+                         
         res.render("videoDetail",{pageTitle:video.title,video});
     } catch(error) {
         console.log(error);
@@ -118,6 +124,19 @@ export const postRegisterView = async(req,res)=>{
         res.end();
     }
 };
+export const postDeleteComment = async(req,res)=>{
+    const {
+        body:{id}
+    } = req;
+    try {
+        await Comment.findByIdAndRemove(id);
+    } catch(error){
+        console.log(error);
+        res.status(400);
+    } finally {
+        res.end();
+    }
+}
 
 export const postAddComment = async(req,res)=>{
     const {
@@ -125,19 +144,24 @@ export const postAddComment = async(req,res)=>{
         body:{comment},
         user
     } = req;
-    try{
-        const video = await Video.findById(id);
-        const newComment = await Comment.create({
-            text:comment,
-            creator:user.id
-        })
-        video.comments.push(newComment.id);
-        video.save();
-    }
-    catch(error){
-        res.status(400);
-    }
-    finally{
-        res.end();
-    }
+    if(!req.user){
+        alert('로그인이 필요합니다.')
+      }
+    else {
+        try{
+            const video = await Video.findById(id);
+            const newComment = await Comment.create({
+                text:comment,
+                creator:user.id
+            })
+            video.comments.push(newComment.id);
+            video.save();
+        }
+        catch(error){
+            res.status(400);
+        }
+        finally{
+            res.end();
+        }
+}
 }

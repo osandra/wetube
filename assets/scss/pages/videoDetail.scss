@@ -50,16 +50,44 @@
     }
     .video__comments-list {
       margin-top: 30px;
-      li {
-        padding: 10px;
+      .comment__area {
+        padding: 10px; 
         color: white;
         background-color: rgb(108, 218, 181);
         border-radius: 10px;
         border-bottom-left-radius: 0;
+        position: relative;
         &:not(:last-child) {
           margin-bottom: 15px;
         }
+        .comment__column:first-child{
+          
+          width: 500px;
+          .comment__info{
+              display: block;
+              margin-right: 5px;
+              font-size:0.7rem;
+              margin-bottom: 2px;
+            }
+            .comment{
+              width:500px;
+              display: inline-block;
+              align-self: end;
+              font-size: 1.1rem;
+            }
+        }
+
+        .delete {
+          .delete_comment{
+            max-width: 40px;
+            position: absolute;
+            right:15px;
+            bottom: 4px;
+            background-color: transparent;
+           }
+         }
+        
+        } 
       }
     }
   }
-}

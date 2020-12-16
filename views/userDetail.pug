@@ -3,8 +3,13 @@ include mixins/videoBlock
 block content
     .user-profile
         .user-profile__header
+            
             //- img.user-avatar(src=user.avataUrl img-src *)
-            img.user-avatar(src=`${user.avataUrl}` img-src *)     
+            if user.id === loggedUser.id
+                img.user-avatar(src=`${user.avataUrl}` img-src *)
+            if user.id !== loggedUser.id
+                img.user-avatar(src="../uploads/default_profile.png")
+
             h4.profile__username=user.name
         if user.id === loggedUser.id
             .user-profile__btns

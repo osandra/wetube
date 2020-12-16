@@ -1,4 +1,3 @@
-import "core-js";
 import express from "express";
 import morgan from "morgan";
 import helmet from "helmet";
@@ -25,6 +24,7 @@ app.use(
     helmet({contentSecurityPolicy: false,
     })
     );
+    
 
 app.set("view engine", "pug");
 app.use("/uploads",express.static("uploads"))

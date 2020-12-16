@@ -1,7 +1,7 @@
+import "@babel/polyfill";
 import dotenv from "dotenv";
 import "./db";
 import app from "./app";
-
 //import Models
 import "./models/Video";
 import "./models/Comment";

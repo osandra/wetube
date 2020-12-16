@@ -1,36 +1,34 @@
 
 const path = require("path");
 const autoprefixer = require("autoprefixer");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const ExtractCSS = require("extract-text-webpack-plugin");
+
 
 const MODE= process.env.WEBPACK_ENV;
 const ENTRY_FILE = path.resolve(__dirname,"assets","js","main.js");
 const OUTPUT_DIR = path.join(__dirname,"static")
 
 const config = {
-    entry: [ENTRY_FILE],
-    mode:MODE,
-    output: {
-        path: OUTPUT_DIR,
-        filename: "[name].js"
-    },
-    module:{
-        rules:[
+    entry: ENTRY_FILE,
+    mode: MODE,
+    module: {
+      rules: [
+        {
+          test: /\.(js)$/,
+          use: [
             {
-                test: /\.(js)$/,
-                use: [
-                    {
-                        loader:"babel-loader"
-                    },
-                ]
+              loader: "babel-loader"
+            }
+          ]
+        },
+        {
+          test: /\.(scss)$/,
+          use: ExtractCSS.extract([
+            {
+              loader: "css-loader"
             },
             {
-            test: /\.(scss)$/,
-            use: [
-                MiniCssExtractPlugin.loader,
-                "css-loader",
-                {
-                    loader: "postcss-loader",
+              loader: "postcss-loader",
                     options:{
                         postcssOptions:{
                             plugins:[
@@ -40,16 +38,20 @@ const config = {
                             ]
                         },
                     },
-                },
-                "sass-loader"
-            ]
-        }]
+              },
+            {
+              loader: "sass-loader"
+            }
+          ])
+        }
+      ]
     },
-    plugins:[
-        new MiniCssExtractPlugin({
-            filename: "styles.css"
-        })
-    ]
-};
+    output: {
+      path: OUTPUT_DIR,
+      filename: "[name].js"
+    },
+    plugins: [new ExtractCSS("styles.css")]
+  };
+
 
 module.exports=config;

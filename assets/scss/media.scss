@@ -1,0 +1,22 @@
+@import "./mixin.scss";
+
+@include mobile { 
+    main{
+        padding:10px;
+    }
+    .header__wrapper{
+        padding: 0px;
+    .header_column {
+        padding: 5px;
+        margin-right: 10px;
+    }
+    }
+    .home-videos {
+        display: flex;
+        justify-content: center;
+    }
+    .home-videos .videoBlock {
+        width: 600px;
+        z-index: 10;
+      }
+    }

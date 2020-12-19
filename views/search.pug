@@ -1,15 +1,16 @@
 extends layouts/main
 include mixins/videoBlock
 block content
-    .search__header
-        p Searching by #{searchingBy}
-    .search__videos
-        each item in videos
-            +videoBlock({
-                id:item.id,
-                title:item.title,
-                views:item.views,
-                videoFile:item.fileUrl
-            })
-        if videos.length ===0
-            h5 No Videos Found
+    .search_content
+        .search__header
+            .search_word #{searchingBy}
+        .search__videos
+            each item in videos
+                +videoBlock({
+                    id:item.id,
+                    title:item.title,
+                    views:item.views,
+                    videoFile:item.fileUrl
+                })
+            if videos.length ===0
+                h5 해당 검색어로 등록된 동영상이 없습니다.

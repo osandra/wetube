@@ -1,9 +1,12 @@
 import passport from "passport";
 import GithubStrategy from "passport-github";
-import FacebookStrategy from "passport-facebook"
-import { facebookLoginCallback, githubLoginCallback } from "./controllers/userController";
+import FacebookStrategy from "passport-facebook";
+import KakaoStrategy from "passport-kakao";
+
+import { facebookLoginCallback, githubLoginCallback,kakaoLoginCallback } from "./controllers/userController";
 import User from "./models/User";
 import routes from "./routes";
+
 
 passport.use(User.createStrategy())
 passport.use(new GithubStrategy({
@@ -33,3 +36,9 @@ passport.use(new FacebookStrategy({
     facebookLoginCallback
   )
 )
+passport.use(new KakaoStrategy({
+    clientID:process.env.KT_ID,
+    clientSecret:process.env.KT_SECRET,
+    callbackURL: `http://localhost:4000${routes.kakaoCallback}`}
+    , kakaoLoginCallback
+    ))

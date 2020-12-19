@@ -1,3 +1,4 @@
+
 .social-login {
   display: flex;
   flex-direction: column;
@@ -5,17 +6,30 @@
   width: 100%;
   button {
     width: 100%;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     max-width: 320px;
     display: flex;
-    justify-content: center;
-    align-items: center;
     &:not(:last-child) {
       margin-bottom: 15px;
     }
+    position: relative;
     span {
+      max-width: 200px;
       margin-right: 10px;
-      font-size: 20px;
+      font-size: 16px;
+      i{
+        position: absolute;
+        left: 10px;
+      }
+      img{
+        position: absolute;
+        left:10px;
+        width:18px;
+        height: 18px;
+      }
     }
+  }
+
   }
   .social-login--github {
     background-color: $black;
@@ -25,4 +39,8 @@
     background-color: #3a5998;
     color: white;
   }
-}
+  .social-login--kakaotalk{
+    background-color: #FEE500;
+    color: #000000;
+    ;
+  }

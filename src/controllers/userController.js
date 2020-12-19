@@ -136,7 +136,7 @@ export const postEditProfile = async(req,res)=>{
     }= req;
     try{
     await User.findByIdAndUpdate(id,{name,email,
-    avataUrl:file?file.path:req.user.avataUrl})
+    avataUrl:file?file.location:req.user.avataUrl})
     res.redirect(routes.me);
     //console.log(User);
     } catch(error){

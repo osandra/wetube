@@ -5,10 +5,10 @@ block content
         .user-profile__header
             
             //- img.user-avatar(src=user.avataUrl img-src *)
-            if user.id === loggedUser.id && user.avataURL != undefined
-                img.user-avatar(src=`${user.avataUrl}` img-src *)
-            if user.id !== loggedUser.id || user.avataURL == undefined
-                img.user-avatar(src="../uploads/default.jpg")
+            if user.id === loggedUser.id && user.avataUrl != undefined
+                img.user-avatar(src=user.avataUrl img-src *)
+            if user.id !== loggedUser.id || user.avataUrl == undefined
+                img.user-avatar(src="./uploads/default.jpg")
 
             h4.profile__username=user.name
         if user.id === loggedUser.id

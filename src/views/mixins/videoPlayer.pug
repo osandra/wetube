@@ -1,6 +1,8 @@
 mixin videoPlayer(video={})
     .videoPlayer#jsVideoPlayer
-        video(src=`/${video.src}`, autoplay)
+        if video.src[-1]=== "mov"
+            video(src=video.src, type = "video/mp4")
+        video(src=video.src, autoplay)
         .videoPlayer__controls
             .vidoePlayer__column
                 span#jsVolumnButton

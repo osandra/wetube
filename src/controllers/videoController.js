@@ -14,6 +14,7 @@ export const home = async(req,res) => {
         res.render("home",{pageTitle: "Home",videos:[]});
     }
 };
+
 export const search = async (req, res)=> {
     const {query: {term: searchingBy}} = req;
     const videos = await Video.find({title:{$regex:searchingBy,$options:"i"}});
@@ -25,10 +26,10 @@ export const getUpload = (req, res)=> {
 export const postUpload = async (req,res)=> {
     const {
         body:{title, description},
-        file:{path}
+        file:{location}
     } = req;
     const newVideo = await Video.create({
-        fileUrl: path,
+        fileUrl: location,
         title,
         description,
         creator:req.user.id

@@ -1,7 +1,6 @@
 @import "./config/variables.scss";
 @import "./config/reset.scss";
 @import "./config/utils.scss";
-@import "./main.scss";
 @import "./partials/header.scss";
 @import "./partials/footer.scss";
 @import "./partials/socialLogin.scss";
@@ -16,3 +15,5 @@
 @import "./pages/search.scss";
 
 @import "./media.scss";
+@import "./main.scss";
+@import "./mixin.scss";

@@ -31,7 +31,7 @@ passport.deserializeUser(function(id, done){
 passport.use(new FacebookStrategy({
     clientID:process.env.FD_ID,
     clientSecret: process.env.FD_SECRET,
-    callbackURL:process.env.PRODUCTION
+    callbackURL: process.env.PRODUCTION
     ? `https://peaceful-citadel-70088.herokuapp.com/${routes.facebookCallback}`
     : `http://localhost:4000${routes.facebookCallback}`,
     profileFields: ["id", "displayName", "photos", "email"],

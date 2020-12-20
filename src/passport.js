@@ -12,7 +12,9 @@ passport.use(User.createStrategy())
 passport.use(new GithubStrategy({
     clientID: process.env.Git_ID,
     clientSecret: process.env.Git_SECRET,
-    callbackURL: `http://localhost:4000${routes.githubCallback}`,}
+    callbackURL: process.env.PRODUCTION
+    ? `https://peaceful-citadel-70088.herokuapp.com/${routes.githubCallback}`
+    : `http://localhost:4000${routes.githubCallback}`,}
     , githubLoginCallback
     ));
 
@@ -39,6 +41,8 @@ passport.use(new FacebookStrategy({
 passport.use(new KakaoStrategy({
     clientID:process.env.KT_ID,
     clientSecret:process.env.KT_SECRET,
-    callbackURL: `http://localhost:4000${routes.kakaoCallback}`}
+    callbackURL: process.env.PRODUCTION
+    ? `https://peaceful-citadel-70088.herokuapp.com/${routes.kakaoCallback}`
+    : `http://localhost:4000${routes.kakaoCallback}`}
     , kakaoLoginCallback
     ))

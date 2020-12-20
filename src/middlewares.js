@@ -1,6 +1,7 @@
 import multer from "multer";
 import aws from "aws-sdk";
 import multerS3 from "multer-s3";
+import path from "path";
 import routes from "./routes";
 
 //const multerVideo = multer({dest:"uploads/videos/"});
@@ -16,6 +17,10 @@ const multerVideo = multer({
     s3,
     acl: "public-read",
     bucket: "wetube12/videos",
+    key: function (req, file, cb) {
+        let extension = path.extname(file.originalname);
+        cb(null,Math.random().toString(36).substring(2, 12) + Date.now().toString() + extension);
+        },
   })
 });
 const multerAvatar = multer({

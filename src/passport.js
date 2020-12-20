@@ -9,14 +9,6 @@ import routes from "./routes";
 
 
 passport.use(User.createStrategy())
-passport.use(new GithubStrategy({
-    clientID: process.env.Git_ID,
-    clientSecret: process.env.Git_SECRET,
-    callbackURL: process.env.PRODUCTION
-    ? `https://peaceful-citadel-70088.herokuapp.com/${routes.githubCallback}`
-    : `http://localhost:4000${routes.githubCallback}`}
-    , githubLoginCallback
-    ));
 
 passport.serializeUser(function(user, done) {
     done(null, user);
@@ -48,3 +40,12 @@ passport.use(new KakaoStrategy({
     : `http://localhost:4000${routes.kakaoCallback}`}
     , kakaoLoginCallback
     ))
+
+passport.use(new GithubStrategy({
+    clientID: process.env.Git_ID,
+    clientSecret: process.env.Git_SECRET,
+    callbackURL: process.env.PRODUCTION
+    ? `https://peaceful-citadel-70088.herokuapp.com/${routes.githubCallback}`
+    : `http://localhost:4000${routes.githubCallback}`}
+    , githubLoginCallback
+    ));

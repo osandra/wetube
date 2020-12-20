@@ -5,3 +5,4 @@ package-lock.json
 src/uploads/videos
 static
 build
+uploads

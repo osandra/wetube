@@ -25,13 +25,14 @@ export const getUpload = (req, res)=> {
 };
 export const postUpload = async (req,res)=> {
     const {
-        body:{title, description},
-        file:{location}
+        body:{title, description, place},
+        file:{location} //path
     } = req;
     const newVideo = await Video.create({
-        fileUrl: location,
+        fileUrl: location, //location
         title,
         description,
+        place,
         creator:req.user.id
     });
     req.user.videos.push(newVideo.id);
@@ -55,17 +56,20 @@ export const getEditVideo = async (req, res)=> {
         res.redirect(routes.home)
     }
 };
+
+
 export const postEditVideo = async (req, res)=> {
     const { 
         params:{id},
-        body:{title,description}
+        body:{title,description, place}
     }=req;
+    console.log(req)
     try {
-        await Video.findOneAndUpdate({_id:id},{title,description});
+        await Video.findOneAndUpdate({_id:id},{title,description,place});
+        console.log(`${title},${description},${place}`)
         res.redirect(routes.videoDetail(id));
     }
     catch(error){
-        console.log(error);
         res.redirect(routes.home);
     }
 };

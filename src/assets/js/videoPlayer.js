@@ -49,6 +49,7 @@ const formatDate = seconds => {
     return `${hours}:${minutes}:${totalSeconds}`;
 };
 
+console.log(VideoPlayer)
 function getCurrentTime(){
     currentTime.innerHTML = formatDate(Math.floor(VideoPlayer.currentTime));
 }
@@ -56,6 +57,7 @@ function getCurrentTime(){
 async function setTotalTime(){
     const blob = await fetch(VideoPlayer.src).then(response=>response.blob());
     const duration = await getBlobDuration(blob);
+    console.log(duration)
     const totalTimeString = formatDate(duration);
     totalTime.innerHTML=totalTimeString;
     setInterval(getCurrentTime, 1000);

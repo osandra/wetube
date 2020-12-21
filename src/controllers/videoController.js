@@ -149,9 +149,10 @@ export const postAddComment = async(req,res)=>{
         body:{comment},
         user
     } = req;
-    if(!req.user){
+    console.log(user)
+    if(req.user===undefined){
         alert('로그인이 필요합니다.')
-      }
+    }
     else {
         try{
             const video = await Video.findById(id);

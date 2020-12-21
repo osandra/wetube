@@ -8,6 +8,7 @@ import session from "express-session";
 import MongoStore from "connect-mongo";
 import mongoose from "mongoose";
 import path from "path";
+import flash from "express-flash";
 import { localsMiddleware } from "./middlewares";
 import userRouter from "./routers/userRouter";
 import videoRouter from "./routers/videoRouter";
@@ -44,6 +45,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(cookieParser());
 app.use(localsMiddleware);
+app.use(flash());
 
 app.use(routes.home, globalRouter);
 app.use(routes.users,userRouter);

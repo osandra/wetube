@@ -9,7 +9,8 @@ export const postJoin = async (req,res,next) => {
     } = req;
     if(password !== password2){
         res.status(400);
-        res.render("join",{pageTitle: "Join"})
+        req.flash('error',"Passwod don't match");
+        res.render("join",{pageTitle: "Join"});
     } else {
         try {
             //Create User
@@ -31,7 +32,8 @@ export const postJoin = async (req,res,next) => {
 export const getLogin = (req, res)=> res.render("login",{pageTitle: "Login"});
 export const postLogin = passport.authenticate("local",{
     failureRedirect: routes.login,
-    successRedirect: routes.home
+    successRedirect: routes.home,
+    failureFlash: "Can't login. Please check email or password",
 });
 
 export const githubLogin = passport.authenticate("github");
@@ -92,7 +94,10 @@ export const facebookLoginCallback = async(_,__,profile,cb) => {
 export const postFacebookLogin = (req,res) =>{
     res.redirect(routes.home)
 };
-export const kakaoLogin = passport.authenticate("kakao")
+export const kakaoLogin = passport.authenticate("kakao",{
+    failureFlash: "Can't log in",
+    successFlash: "Welcome!"
+})
 export const kakaoLoginCallback = async (_,__,profile,done) => {
     const {
         _json:{id, 
@@ -138,9 +143,11 @@ export const postEditProfile = async(req,res)=>{
     try{
     await User.findByIdAndUpdate(id,{name,email,
     avataUrl:file?file.location:req.user.avataUrl})
+    req.flash("success","Profile updated!")
     res.redirect(routes.me);
     //console.log(User);
     } catch(error){
+        req.flash("error","Can't update profile")
         console.log(`error is ${error}`)
         res.render("editProfile",{pageTitle: "Edit Profile"});
     }
@@ -178,6 +185,7 @@ export const userDetail = async(req, res) => {
     }
     catch(error){
         console.log(error);
+        req.flash("error","User not found");
         res.redirect(routes.home)
     }
 };

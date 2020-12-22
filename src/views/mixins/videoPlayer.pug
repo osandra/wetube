@@ -1,6 +1,6 @@
 mixin videoPlayer(video={})
     .videoPlayer#jsVideoPlayer
-        video(src=video.src, autoplay)
+        video(src=`/${video.src}`, autoplay)
         .videoPlayer__controls#controls
             .vidoePlayer__column   
                 span#jsVolumnButton
@@ -11,9 +11,9 @@ mixin videoPlayer(video={})
                     .custom-seekbar
                         span.show-time 
                     .display-time
-                        span#currentTime 00:00 
-                        span  /
-                        span#totalTime 10:00
+                        span#currentTime 00:00
+                        span / 
+                        span#totalTime  00:00
             .vidoePlayer__column
                 span#jsPlayButton
                     i.fas.fa-play

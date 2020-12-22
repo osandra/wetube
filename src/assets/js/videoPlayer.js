@@ -53,16 +53,19 @@ const formatDate = seconds => {
     if(totalSeconds<10){
         totalSeconds = `0${totalSeconds}`;
     }
-    return `${hours}:${minutes}:${totalSeconds}`;
+    return `${minutes}:${totalSeconds}`;
 };
+
 function getCurrentTime(){
-    currentTimeValue.innerHTML = formatDate(Math.floor(VideoPlayer.currentTime));
+    const currentTime=formatDate(Math.floor(VideoPlayer.currentTime));
+    currentTimeValue.innerHTML = currentTime;    
 }
 
 async function setTotalTime(){
-    const blob = await fetch(VideoPlayer.src).then(response=>response.blob());
-    const duration = await getBlobDuration(blob);
-    const totalTimeString = formatDate(duration);
+    // const blob = await fetch(VideoPlayer.src).then(response=>response.blob());
+    // const duration = await getBlobDuration(blob);
+    // const totalTimeString = formatDate(duration);
+    const totalTimeString = formatDate(Math.floor(VideoPlayer.duration))
     totalTime.innerHTML=totalTimeString;
     setInterval(getCurrentTime, 1000);
 }
@@ -137,17 +140,19 @@ const handleTimeChange = e=>{
 function init(){
     VideoPlayer.volume=0.5;
     videoButtonInit();
+    document.addEventListener("keydown",handleKeyDown);
+
     playBtn.addEventListener("click",handlePlayButton);
     videoContainer.addEventListener("mousemove",showControls);
     videoContainer.addEventListener("mouseleave",hideControls);
-    VideoPlayer.addEventListener("timeupdate", handleTimeUpdate);
     timerBar.addEventListener("click",handleTimeChange);
-    document.addEventListener("keydown",handleKeyDown);
+    volumeControl.addEventListener("input",handleDrag);
     volumnBtn.addEventListener("click",handleVolumnButton);
     screenBtn.addEventListener("click",goFullScreen);
+
+    VideoPlayer.addEventListener("timeupdate", handleTimeUpdate);
     VideoPlayer.addEventListener("loadedmetadata",setTotalTime);
     VideoPlayer.addEventListener("ended", handleEnded);
-    volumeControl.addEventListener("input",handleDrag);
 };
 
 if(videoContainer){

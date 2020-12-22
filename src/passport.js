@@ -42,8 +42,8 @@ passport.use(new KakaoStrategy({
     ))
 
 passport.use(new GithubStrategy({
-    clientID: process.env.Git_ID,
-    clientSecret: process.env.Git_SECRET,
+    clientID:process.env.GIT_ID,
+    clientSecret: process.env.GIT_SECRET,
     callbackURL: process.env.PRODUCTION
     ? `https://peaceful-citadel-70088.herokuapp.com/${routes.githubCallback}`
     : `http://localhost:4000${routes.githubCallback}`}

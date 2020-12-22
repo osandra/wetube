@@ -59,10 +59,19 @@
     }
     .vidoePlayer__column:nth-child(2){
       grid-column: span 9;
+      width: 100%;
       .timeControl {
         display: flex;
         .display-time{
-          margin-top:3px;
+          margin-top: 4px;
+          width:40%;
+          font-size: 14px;
+          #currentTime{
+            margin-right: 1px;
+          }
+          #totalTime{
+            margin-left: 1px;
+          }
         }
         .custom-seekbar {
           cursor: pointer;
@@ -72,7 +81,7 @@
           margin-top: 9px;
           margin-right: 20px;
           position: relative;
-          width: 300px;
+          width: 60%;
         }
         .custom-seekbar span {
           padding:0;

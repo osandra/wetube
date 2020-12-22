@@ -55,7 +55,7 @@ passport.use(new GoogleStrategy({
     clientID:process.env.GOOGLE_ID,
     clientSecret:process.env.GOOGLE_SECRET,
     callbackURL: process.env.PRODUCTION
-    ? `https://peaceful-citadel-70088.herokuapp.com/${routes.googleCallback}`
+    ? `https://peaceful-citadel-70088.herokuapp.com${routes.googleCallback}`
     : `http://localhost:4000${routes.googleCallback}`}
     , googleLoginCallback
     ));

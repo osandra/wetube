@@ -5,9 +5,12 @@ const VideoPlayer = document.querySelector("#jsVideoPlayer video");
 const playBtn = document.getElementById("jsPlayButton");
 const volumnBtn = document.getElementById("jsVolumnButton");
 const screenBtn = document.getElementById("jsScreenButton");
-const currentTime = document.getElementById("currentTime");
+const currentTimeValue = document.getElementById("currentTime");
 const totalTime = document.getElementById("totalTime");
 const volumeControl = document.getElementById("jsVolume");
+const controls = document.getElementById("controls");
+const timerBar = document.querySelector(".custom-seekbar");
+const timebarSpan = timerBar.querySelector(".show-time")
 
 function handlePlayButton(){
     if(VideoPlayer.paused){
@@ -19,7 +22,11 @@ function handlePlayButton(){
     }
 };
 
-
+const handleKeyDown = e=>{
+    if((e||window.event).keyCode ===32){
+        handlePlayButton();
+    }  
+}
 function handleVolumnButton(){
     if(VideoPlayer.muted){
         VideoPlayer.muted=false;
@@ -48,21 +55,17 @@ const formatDate = seconds => {
     }
     return `${hours}:${minutes}:${totalSeconds}`;
 };
-
-console.log(VideoPlayer)
 function getCurrentTime(){
-    currentTime.innerHTML = formatDate(Math.floor(VideoPlayer.currentTime));
+    currentTimeValue.innerHTML = formatDate(Math.floor(VideoPlayer.currentTime));
 }
 
 async function setTotalTime(){
     const blob = await fetch(VideoPlayer.src).then(response=>response.blob());
     const duration = await getBlobDuration(blob);
-    console.log(duration)
     const totalTimeString = formatDate(duration);
     totalTime.innerHTML=totalTimeString;
     setInterval(getCurrentTime, 1000);
 }
-
 function exitFullSreen(){
     document.exitFullscreen();
     screenBtn.innerHTML=`<i class="fas fa-expand"></i>`;
@@ -101,10 +104,45 @@ const handleEnded=()=>{
 const videoButtonInit = ()=>{
     playBtn.innerHTML=`<i class="fas fa-pause"></i>`
 }
+
+let hideTimeout = null;
+
+const hideControls = ()=>{
+    controls.classList.add("hidden");
+}
+
+const showControls = ()=>{
+    if(hideTimeout){
+        clearTimeout(hideTimeout);
+    }
+    controls.classList.remove("hidden")
+    hideTimeout = setTimeout(hideControls,3000);
+}
+
+const handleTimeUpdate = () =>{
+    const {currentTime, duration} = VideoPlayer;
+    const percentage = (currentTime/duration) * 100; 
+    timebarSpan.style.width = `${percentage}%`;
+}
+
+const handleTimeChange = e=>{
+ const timerBarvalue = document.querySelector(".custom-seekbar").getBoundingClientRect();
+ const left = e.pageX - timerBarvalue.left;
+ const totalWidth = timerBar.clientWidth;
+ const percentage = left / totalWidth;
+ const videoTime = VideoPlayer.duration * percentage;
+ VideoPlayer.currentTime = videoTime;
+}
+
 function init(){
     VideoPlayer.volume=0.5;
     videoButtonInit();
     playBtn.addEventListener("click",handlePlayButton);
+    videoContainer.addEventListener("mousemove",showControls);
+    videoContainer.addEventListener("mouseleave",hideControls);
+    VideoPlayer.addEventListener("timeupdate", handleTimeUpdate);
+    timerBar.addEventListener("click",handleTimeChange);
+    document.addEventListener("keydown",handleKeyDown);
     volumnBtn.addEventListener("click",handleVolumnButton);
     screenBtn.addEventListener("click",goFullScreen);
     VideoPlayer.addEventListener("loadedmetadata",setTotalTime);

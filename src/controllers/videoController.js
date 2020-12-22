@@ -23,13 +23,14 @@ export const search = async (req, res)=> {
 export const getUpload = (req, res)=> {
     res.render("upload",{pageTitle: "Upload"})
 };
+
 export const postUpload = async (req,res)=> {
     const {
         body:{title, description, place},
-        file:{location} //path
+        file:{location} 
     } = req;
     const newVideo = await Video.create({
-        fileUrl: location, //location
+        fileUrl: location,
         title,
         description,
         place,
@@ -63,7 +64,6 @@ export const postEditVideo = async (req, res)=> {
         params:{id},
         body:{title,description, place}
     }=req;
-    console.log(req)
     try {
         await Video.findOneAndUpdate({_id:id},{title,description,place});
         console.log(`${title},${description},${place}`)

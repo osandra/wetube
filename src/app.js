@@ -28,6 +28,10 @@ app.use(
     );
     
 app.set("view engine", "pug");
+
+//just for localhost
+app.use("/src", express.static("src"));
+
 app.use("/uploads", express.static("uploads"));
 app.set("views",path.join(__dirname,"views"));
 app.use("/static",express.static(path.join(__dirname,"static")));

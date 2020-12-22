@@ -30,6 +30,10 @@ const DELETE_COMMENT = "/:id/comment/delete";
 const GITHUB = "/auth/github";
 const GITHUB_CALLBACK = "/auth/github/callback";
 
+//Google
+const GOOGLE = "/auth/google";
+const GOOGLE_CALLBACK = "/auth/google/callback";
+
 //Facebook
 const FD="/auth/facebook";
 const FD_CALLBACK="/auth/facebook/callback";
@@ -80,6 +84,8 @@ const routes = {
  },
  github:GITHUB,
  githubCallback: GITHUB_CALLBACK,
+ google:GOOGLE,
+ googleCallback:GOOGLE_CALLBACK,
  me:ME,
  facebook:FD,
  facebookCallback:FD_CALLBACK,

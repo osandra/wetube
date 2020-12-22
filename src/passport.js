@@ -2,8 +2,9 @@ import passport from "passport";
 import GithubStrategy from "passport-github2";
 import FacebookStrategy from "passport-facebook";
 import KakaoStrategy from "passport-kakao";
+import GoogleStrategy from "passport-google-oauth20";
 
-import { facebookLoginCallback, githubLoginCallback,kakaoLoginCallback } from "./controllers/userController";
+import { facebookLoginCallback, githubLoginCallback,googleLoginCallback,kakaoLoginCallback } from "./controllers/userController";
 import User from "./models/User";
 import routes from "./routes";
 
@@ -48,4 +49,13 @@ passport.use(new GithubStrategy({
     ? `https://peaceful-citadel-70088.herokuapp.com/${routes.githubCallback}`
     : `http://localhost:4000${routes.githubCallback}`}
     , githubLoginCallback
+    ));
+
+passport.use(new GoogleStrategy({
+    clientID:process.env.GOOGLE_ID,
+    clientSecret:process.env.GOOGLE_SECRET,
+    callbackURL: process.env.PRODUCTION
+    ? `https://peaceful-citadel-70088.herokuapp.com/${routes.googleCallback}`
+    : `http://localhost:4000${routes.googleCallback}`}
+    , googleLoginCallback
     ));

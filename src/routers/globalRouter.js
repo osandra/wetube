@@ -2,7 +2,7 @@ import express from "express";
 import passport from "passport";
 import {home, search} from "../controllers/videoController";
 import {getJoin, postJoin, getLogin, postLogin, logout, githubLogin, postGithubLogin, getMeProfile,
-    facebookLogin, postFacebookLogin, kakaoLogin, postKakaoLogin} from "../controllers/userController";
+    facebookLogin, postFacebookLogin, kakaoLogin, postKakaoLogin, googleLogin, postGoogleLogin } from "../controllers/userController";
 import routes from "../routes";
 import { onlyPublic, onlyPrivate } from "../middlewares";
 
@@ -19,6 +19,13 @@ globalRouter.get(routes.github,githubLogin);
 globalRouter.get(routes.githubCallback,
     passport.authenticate("github",{failureRedirect:"/login"}),
     postGithubLogin
+    );
+
+//google login
+globalRouter.get(routes.google,googleLogin);
+globalRouter.get(routes.googleCallback,
+    passport.authenticate("google",{failureRedirect:"/login"}),
+    postGoogleLogin
     );
 
 //facebook login

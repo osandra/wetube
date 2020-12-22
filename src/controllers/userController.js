@@ -36,6 +36,33 @@ export const postLogin = passport.authenticate("local",{
     failureFlash: "Can't login. Please check email or password",
 });
 
+export const googleLoginCallback = async(_,__,profile,cb)=>{
+    const {
+        _json:{ sub:id, name, email}
+    } = profile;
+    try {
+        const user = await User.findOne({email})
+    if (user) {
+        user.googleId=id;
+        user.save();
+        return cb(null,user)
+    }
+    const newUser = await User.create({
+        email,
+        name,
+        googleId: id,
+    })
+        return cb(null,newUser)
+    }
+    catch (error) {
+        return cb(error);
+   }
+}
+export const googleLogin = passport.authenticate("google",{scope:['profile','email']});
+export const postGoogleLogin = (req,res) =>{
+    res.redirect(routes.home)
+};
+
 export const githubLogin = passport.authenticate("github");
 
 export const postGithubLogin = (req,res) =>{

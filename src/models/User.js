@@ -7,6 +7,7 @@ const UserSchema = new mongoose.Schema({
     avataUrl:String,
     facebookId: Number,
     githubId: Number,
+    googleId:Number,
     kakaoId:Number,
     comments:[
         {

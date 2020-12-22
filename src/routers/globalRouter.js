@@ -19,7 +19,7 @@ globalRouter.get(routes.github,githubLogin);
 globalRouter.get(routes.githubCallback,
     passport.authenticate("github",{failureRedirect:"/login"}),
     postGithubLogin
-    )
+    );
 
 //facebook login
 globalRouter.get(routes.facebook,facebookLogin);

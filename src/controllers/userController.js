@@ -61,8 +61,8 @@ export const githubLoginCallback = async (_, __, profile, cb)=>{
         });
         return cb(null, newUser);
       } catch (error) {
-          console.log(error);
-            return cb(error);
+           console.log(error);
+           return cb(error);
       }
 };
 

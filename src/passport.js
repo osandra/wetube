@@ -1,5 +1,5 @@
 import passport from "passport";
-import GithubStrategy from "passport-github";
+import GithubStrategy from "passport-github2";
 import FacebookStrategy from "passport-facebook";
 import KakaoStrategy from "passport-kakao";
 
@@ -49,4 +49,3 @@ passport.use(new GithubStrategy({
     : `http://localhost:4000${routes.githubCallback}`}
     , githubLoginCallback
     ));
-    

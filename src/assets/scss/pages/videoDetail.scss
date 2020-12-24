@@ -103,8 +103,9 @@
             }
             .current_replyComment{
               .replyText{
+                width: 100%;
                 margin-left: 32px;
-                padding: 2px 2px 2px 23px;
+                padding: 2px 2px 2px 20px;
                 border-bottom: 1px solid rgb(231, 231, 231);
                 position: relative;
                 display: flex;
@@ -125,9 +126,12 @@
                   }
                 }
                 .replyText{
+                  padding-left:13px;
                   display: absolute;
+                  max-width: 150px;
                   right: 79px;
                   top:10px;
+                  border:none;
                    }
                 .replydelete{
                   .delete_reply_comment{
@@ -147,13 +151,20 @@
         .reply__area{
             margin-left: 32px;
             justify-self: start;
-            width: 200px;
+            width: 500px;
             padding: 3px;
             font-size: 12px;
             margin-bottom: 5px;
             border-radius: 10px;
             cursor: pointer;
             color:black;
+            #jsAddReplyComment{
+              margin-left: 5px;
+              width: 100%;
+              input{
+                width: 100%;
+              }
+            }
             #replyText{
               padding-left: 5px;
             }

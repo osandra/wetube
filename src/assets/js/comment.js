@@ -167,9 +167,7 @@ const sendReplyComment = async (comment,commentId)=>{
 
 const handleSubmitReplyComment= event =>{
     event.preventDefault();
-    console.log(event);
-    const commentInput = event.target.firstChild
-    console.log(commentInput)
+    const commentInput = event.target.firstChild;
     const comment = commentInput.value;
     const commentId = commentInput.id
     sendReplyComment(comment, commentId);
@@ -183,7 +181,6 @@ Array.from(addCommentReplyForm).forEach(addCommentReply => {
 const handleReplyClick = (event)=>{
     event.preventDefault();
     const replyAreaTarget = event.target
-    console.log(replyAreaTarget);
     const form = replyAreaTarget.nextElementSibling
     const input = form.querySelector("input")
     if (input.classList.contains("none")){

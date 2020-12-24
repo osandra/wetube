@@ -28,6 +28,7 @@ const DELETE_COMMENT = "/:id/comment/delete";
 
 //reply
 const RECOMMENT = "/:id/:comment_id/recomment";
+const DELETE_RECOMMENT = "/:id/:comment_id/recomment/delete"
 
 //Github
 const GITHUB = "/auth/github";
@@ -104,9 +105,8 @@ const routes = {
      return DELETE_COMMENT
    }
  },
-
-
  recomment:RECOMMENT,
+ deleteRecomment:DELETE_RECOMMENT
 }
 
 export default routes;

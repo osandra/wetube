@@ -89,7 +89,9 @@
               left: 35px;
               margin-right: 5px;
               font-size:0.7rem;
-              margin-bottom: 2px;
+              &:hover{
+                color:#246e87;
+              }
             }
             .comment{
               padding-left: 35px;
@@ -101,16 +103,38 @@
             }
             .current_replyComment{
               .replyText{
-                margin-left: 35px;
+                margin-left: 32px;
                 padding: 2px 2px 2px 23px;
                 border-bottom: 1px solid rgb(231, 231, 231);
                 position: relative;
+                display: flex;
+                min-height: 30px;
+                .replyAvatar{
+                  img{
+                    width: 30px;
+                    height: 30px;
+                  }
+                }
+                .replyCreator{
+                  font-size: 10px;
+                  display: block;
+                  margin-right: 8px;
+                  padding-left: 7px;
+                  &:hover{
+                    color:#246e87;
+                  }
+                }
+                .replyText{
+                  display: absolute;
+                  right: 79px;
+                  top:10px;
+                   }
                 .replydelete{
                   .delete_reply_comment{
                     font-size: 10px;
                     max-width: 40px;
-                    right: 10px;
-                    top: 0px;
+                    right: 5px;
+                    top: 7px;
                     margin:0;
                     padding:0;
                     position: absolute;
@@ -128,7 +152,6 @@
             font-size: 12px;
             margin-bottom: 5px;
             border-radius: 10px;
-            background-color: white;
             cursor: pointer;
             color:black;
             #replyText{
@@ -138,6 +161,7 @@
               display: none;
             }
             .reply_input{
+              margin-top: 7px;
               z-index: 5;
               &:hover{
                 cursor: pointer;
@@ -148,7 +172,7 @@
           .delete_comment{
             max-width: 60px;
             position: absolute;
-            right:20px;
+            right:10px;
             bottom: 4px;
             background-color: transparent;
            }
@@ -164,4 +188,7 @@
   }
 .font-small{
   font-size: 10px;
+}
+.block{
+  display: block;
 }

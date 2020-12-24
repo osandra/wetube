@@ -156,10 +156,20 @@ export const postDeleteComment = async(req,res)=>{
         res.end();
     }
 }
+export const postReplyDeleteComment = async(req,res)=>{
+    const {
+        body:{id}
+    } = req;
+    try{
+        await ReplyComment.findByIdAndRemove(id);
+    } catch{
+        res.status(400);
+    } finally {
+        res.end();
+    }
+    console.log(req);
+}
 
-
-
-//`/api/${videoId}/${commentId}/recomment`,
 export const postAddReplyComment = async(req,res)=>{
     const {
         params:{id,comment_id:commetID},

@@ -6,7 +6,7 @@ const commentNumber = document.getElementById("jsCommentNumber");
 const deleteCommentForm = document.querySelectorAll(".jsDeleteForm");
 const replyText = document.querySelectorAll("#replyText");
 const addCommentReplyForm = document.querySelectorAll("#jsAddReplyComment");
-
+const replyDeleteCommentForm = document.querySelectorAll(".jsReplyDeleteForm");
 
 const addCommentNumber = ()=>{
     commentNumber.innerHTML = parseInt(commentNumber.innerHTML,10)+1
@@ -74,6 +74,39 @@ const handleDeleteComment = async (event)=>{
     deleteComment(event);
 }
 
+
+
+
+function getNthParent(elem, n) {
+    return n === 0 ? elem : getNthParent(elem.parentNode, n - 1);
+}
+
+const deleteReplyComment= (event)=> {
+    event.preventDefault();
+    const column = getNthParent(event.target,2);
+    const ul = getNthParent(event.target,3);
+    ul.removeChild(column); 
+}
+
+const handleReplyDeleteComment = async (event)=>{
+    event.preventDefault();
+    const videoId = window.location.href.split("/videos/")[1];
+    const form  = event.target;
+    const input = form.querySelector("input");
+    const id = input.name;
+    const ul = getNthParent(event.target,3);
+    let commentId = ul.id;
+    commentId= commentId.slice(2,);
+    const response = await axios({
+        url: `/api/${videoId}/${commentId}/recomment/delete`,
+        method:"POST",
+        data:{id}
+    })
+    if(response.status===200){
+        deleteReplyComment(event)
+    }
+}
+
 const sendComment= async comment => {
     const videoId = window.location.href.split("/videos/")[1];
     const response = await axios({
@@ -97,6 +130,9 @@ const handleSubmitComment = event =>{
 
 
 const addFakeReplyComment = (comment,commentId)=>{
+    const replyCreator = document.createElement("span");
+    replyCreator.className="replyCreator";
+    replyCreator.innerHTML="recent";
     const ul= document.getElementById(`00${commentId}`)
     const replyli = document.createElement("li");
     replyli.className="replycomment__area";
@@ -104,7 +140,11 @@ const addFakeReplyComment = (comment,commentId)=>{
     const replytext = document.createElement("span");
     replytextarea.className="replyText";
     replytext.innerHTML=comment;
-    replytextarea.appendChild(replytext)
+
+    replytext.classList.add="block";
+    replytextarea.appendChild(replyCreator);
+
+    replytextarea.appendChild(replytext);
     replyli.appendChild(replytextarea);
     console.log(replyli);
     console.log(ul);
@@ -132,7 +172,6 @@ const handleSubmitReplyComment= event =>{
     console.log(commentInput)
     const comment = commentInput.value;
     const commentId = commentInput.id
-    // console.log(commentId);
     sendReplyComment(comment, commentId);
     commentInput.value="";
 }
@@ -144,6 +183,7 @@ Array.from(addCommentReplyForm).forEach(addCommentReply => {
 const handleReplyClick = (event)=>{
     event.preventDefault();
     const replyAreaTarget = event.target
+    console.log(replyAreaTarget);
     const form = replyAreaTarget.nextElementSibling
     const input = form.querySelector("input")
     if (input.classList.contains("none")){
@@ -161,6 +201,9 @@ function init(){
     addCommentForm.addEventListener("submit",handleSubmitComment);
     deleteCommentForm.forEach((item) => {
         item.addEventListener("submit", handleDeleteComment)
+    });
+    replyDeleteCommentForm.forEach((item)=>{
+        item.addEventListener("submit",handleReplyDeleteComment)
     });
 }
 

@@ -56,10 +56,20 @@ block content
                                         each replyComment in comment.childrenComment
                                             li.replycomment__area
                                                 div.replyText
-                                                    span #{replyComment.text}
+                                                    span.replyAvatar
+                                                        if replyComment.creator.avataUrl != undefined
+                                                            a(href=routes.userDetail(replyComment.creator._id))
+                                                                img.user-avatar(src=replyComment.creator.avataUrl img-src *)
+                                                        if replyComment.creator.avataUrl == undefined
+                                                            a(href=routes.userDetail(replyComment.creator._id))
+                                                                img.user-avatar(src="https://wetube12.s3.ap-northeast-2.amazonaws.com/default.jpg")
+                                                    span.replyCreator
+                                                        a(href=routes.userDetail(comment.creator._id))
+                                                            span #{replyComment.creator.name}
+                                                    span.replyText #{replyComment.text}
                                                     if loggedUser.id === replyComment.creator.id
                                                         form.replydelete.jsReplyDeleteForm
                                                             input.delete_reply_comment(type="submit" value="❌" name=replyComment.id)
                         if loggedUser && loggedUser.id === comment.creator.id
                             form.delete.jsDeleteForm
-                                input.delete_comment(type="submit" value="delete" name=comment.id)
+                                input.delete_comment(type="submit" value="❌" name=comment.id)

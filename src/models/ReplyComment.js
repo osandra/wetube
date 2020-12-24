@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const CommentSchema = new mongoose.Schema({
+const ReplyCommentSchema = new mongoose.Schema({
     text:{
         type: String,
         required: 'Text is required'
@@ -13,11 +13,7 @@ const CommentSchema = new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:"User"
     },
-    childrenComment:[{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "ReplyComment"
-    }],
 })
 
-const model = mongoose.model("Comment",CommentSchema);
+const model = mongoose.model("ReplyComment",ReplyCommentSchema);
 export default model;

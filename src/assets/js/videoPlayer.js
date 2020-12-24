@@ -12,6 +12,7 @@ const controls = document.getElementById("controls");
 const timerBar = document.querySelector(".custom-seekbar");
 const timebarSpan = timerBar.querySelector(".show-time")
 
+
 function handlePlayButton(){
     if(VideoPlayer.paused){
         VideoPlayer.play();
@@ -137,6 +138,7 @@ const handleTimeChange = e=>{
  VideoPlayer.currentTime = videoTime;
 }
 
+
 function init(){
     VideoPlayer.volume=0.5;
     videoButtonInit();
@@ -151,7 +153,9 @@ function init(){
     screenBtn.addEventListener("click",goFullScreen);
 
     VideoPlayer.addEventListener("timeupdate", handleTimeUpdate);
-    VideoPlayer.addEventListener("loadedmetadata",setTotalTime);
+    //
+    VideoPlayer.addEventListener("loadeddata",setTotalTime);
+    //VideoPlayer.addEventListener("loadedmetadata",setTotalTime);
     VideoPlayer.addEventListener("ended", handleEnded);
 };
 

@@ -64,8 +64,9 @@
       margin-top: 30px;
       .comment__area {
         padding: 10px; 
-        color: white;
-        background-color: rgb(108, 218, 181);
+        color: black;
+        
+        background-color:  #f1f2f6;
         border-radius: 10px;
         border-bottom-left-radius: 0;
         position: relative;
@@ -73,27 +74,81 @@
           margin-bottom: 15px;
         }
         .comment__column:first-child{
-          
           width: 500px;
+          position: relative;
+          .comment__profile{
+            img{
+              width: 30px;
+              height: 30px;
+            }
+            
+          }
           .comment__info{
-              display: block;
+              position:absolute;
+              top: 10px;
+              left: 35px;
               margin-right: 5px;
               font-size:0.7rem;
               margin-bottom: 2px;
             }
             .comment{
+              padding-left: 35px;
               width:500px;
               display: inline-block;
               align-self: end;
               font-size: 1.1rem;
+              margin-bottom: 10px;
+            }
+            .current_replyComment{
+              .replyText{
+                margin-left: 35px;
+                padding: 2px 2px 2px 23px;
+                border-bottom: 1px solid rgb(231, 231, 231);
+                position: relative;
+                .replydelete{
+                  .delete_reply_comment{
+                    font-size: 10px;
+                    max-width: 40px;
+                    right: 10px;
+                    top: 0px;
+                    margin:0;
+                    padding:0;
+                    position: absolute;
+                    background-color: transparent;
+                   }
+                }
+              }
             }
         }
-
+        .reply__area{
+            margin-left: 32px;
+            justify-self: start;
+            width: 200px;
+            padding: 3px;
+            font-size: 12px;
+            margin-bottom: 5px;
+            border-radius: 10px;
+            background-color: white;
+            cursor: pointer;
+            color:black;
+            #replyText{
+              padding-left: 5px;
+            }
+            .none {            
+              display: none;
+            }
+            .reply_input{
+              z-index: 5;
+              &:hover{
+                cursor: pointer;
+            }
+         }
+        }   
         .delete {
           .delete_comment{
-            max-width: 40px;
+            max-width: 60px;
             position: absolute;
-            right:15px;
+            right:20px;
             bottom: 4px;
             background-color: transparent;
            }
@@ -103,3 +158,10 @@
       }
     }
   }
+.showing {
+    z-index: 10;
+    display: block;
+  }
+.font-small{
+  font-size: 10px;
+}

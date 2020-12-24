@@ -1,11 +1,12 @@
 import axios from "axios";
 
-
-
 const addCommentForm = document.getElementById("jsAddComment");
 const commentList = document.getElementById("jsCommentList");
 const commentNumber = document.getElementById("jsCommentNumber");
 const deleteCommentForm = document.querySelectorAll(".jsDeleteForm");
+const replyText = document.querySelectorAll("#replyText");
+const addCommentReplyForm = document.querySelectorAll("#jsAddReplyComment");
+
 
 const addCommentNumber = ()=>{
     commentNumber.innerHTML = parseInt(commentNumber.innerHTML,10)+1
@@ -18,6 +19,7 @@ const addFakeComment = (comment)=>{
     const text = document.createElement("span");
     text.innerHTML=comment;
     info.innerHTML= "recent";
+    info.classList.add("font-small");
     const column1 = document.createElement("div");
     const infoComment = document.createElement("div");
     const infoText = document.createElement('div');
@@ -58,8 +60,6 @@ const deleteComment= (event)=> {
     minusCommentNumber();
 }
 
-
-
 const handleDeleteComment = async (event)=>{
     event.preventDefault();
     const videoId = window.location.href.split("/videos/")[1];
@@ -95,6 +95,67 @@ const handleSubmitComment = event =>{
     commentInput.value="";
 }
 
+
+const addFakeReplyComment = (comment,commentId)=>{
+    const ul= document.getElementById(`00${commentId}`)
+    const replyli = document.createElement("li");
+    replyli.className="replycomment__area";
+    const replytextarea = document.createElement("div");
+    const replytext = document.createElement("span");
+    replytextarea.className="replyText";
+    replytext.innerHTML=comment;
+    replytextarea.appendChild(replytext)
+    replyli.appendChild(replytextarea);
+    console.log(replyli);
+    console.log(ul);
+    ul.prepend(replyli);
+}
+
+const sendReplyComment = async (comment,commentId)=>{
+    const videoId = window.location.href.split("/videos/")[1];
+    const response = await axios({
+        url: `/api/${videoId}/${commentId}/recomment`,
+        method:"POST",
+        data:{
+            comment
+        }
+    })
+    if(response.status===200){
+        addFakeReplyComment(comment,commentId);
+    }
+}
+
+const handleSubmitReplyComment= event =>{
+    event.preventDefault();
+    console.log(event);
+    const commentInput = event.target.firstChild
+    console.log(commentInput)
+    const comment = commentInput.value;
+    const commentId = commentInput.id
+    // console.log(commentId);
+    sendReplyComment(comment, commentId);
+    commentInput.value="";
+}
+Array.from(addCommentReplyForm).forEach(addCommentReply => {
+    addCommentReply.addEventListener('submit',handleSubmitReplyComment);
+});
+
+
+const handleReplyClick = (event)=>{
+    event.preventDefault();
+    const replyAreaTarget = event.target
+    const form = replyAreaTarget.nextElementSibling
+    const input = form.querySelector("input")
+    if (input.classList.contains("none")){
+        input.classList.remove("none")
+    }else{
+        input.classList.add("none")
+    }
+   
+}
+Array.from(replyText).forEach(area => {
+    area.addEventListener('click',handleReplyClick);
+});
 
 function init(){
     addCommentForm.addEventListener("submit",handleSubmitComment);

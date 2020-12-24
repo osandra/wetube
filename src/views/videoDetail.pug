@@ -35,11 +35,31 @@ block content
                 each comment in video.comments.reverse()
                     li.comment__area
                         .comment__column
+                            .comment__profile            
+                                if comment.creator.avataUrl != undefined
+                                    a(href=routes.userDetail(comment.creator._id))
+                                        img.user-avatar(src=comment.creator.avataUrl img-src *)
+                                if comment.creator.avataUrl == undefined
+                                    a(href=routes.userDetail(comment.creator._id))
+                                        img.user-avatar(src="https://wetube12.s3.ap-northeast-2.amazonaws.com/default.jpg")
                             .comment__info
-                                span #{comment.creator.name}
+                                a(href=routes.userDetail(comment.creator._id))
+                                    span #{comment.creator.name}
                             .comment
                                 span #{comment.text}
-                        .comment__column
+                            .reply__area#reply
+                                div#replyText="reply"
+                                form#jsAddReplyComment
+                                    input.reply_input.none(type="text", id=comment.id,placeholder="Add a public reply")
+                            .current_replyComment
+                                    ul#jsRelpyList&attributes({'id':`00${comment.id}`})
+                                        each replyComment in comment.childrenComment
+                                            li.replycomment__area
+                                                div.replyText
+                                                    span #{replyComment.text}
+                                                    if loggedUser.id === replyComment.creator.id
+                                                        form.replydelete.jsReplyDeleteForm
+                                                            input.delete_reply_comment(type="submit" value="❌" name=replyComment.id)
                         if loggedUser && loggedUser.id === comment.creator.id
                             form.delete.jsDeleteForm
-                                input.delete_comment(type="submit" value="❌" name=comment.id)
+                                input.delete_comment(type="submit" value="delete" name=comment.id)

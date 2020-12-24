@@ -26,6 +26,9 @@ const REGISTER_VIEW = "/:id/view";
 const ADD_COMMENT = "/:id/comment";
 const DELETE_COMMENT = "/:id/comment/delete";
 
+//reply
+const RECOMMENT = "/:id/:comment_id/recomment";
+
 //Github
 const GITHUB = "/auth/github";
 const GITHUB_CALLBACK = "/auth/github/callback";
@@ -101,6 +104,9 @@ const routes = {
      return DELETE_COMMENT
    }
  },
+
+
+ recomment:RECOMMENT,
 }
 
 export default routes;

@@ -6,6 +6,7 @@ import app from "./app";
 import "./models/Video";
 import "./models/Comment";
 import "./models/User";
+import "./models/ReplyComment";
 
 dotenv.config();
 

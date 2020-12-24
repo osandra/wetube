@@ -2,11 +2,13 @@ import routes from "../routes";
 import Video from "../models/Video";
 import Comment from "../models/Comment";
 
+import ReplyComment from "../models/ReplyComment";
+
 const alert = require('alert');  
 
 export const home = async(req,res) => {
     try{
-        const videos = await Video.find({})
+        const videos = await Video.find({}).sort( { views: -1 } )
         res.render("home",{pageTitle: "Home",videos});
     } 
     catch(error){
@@ -17,7 +19,12 @@ export const home = async(req,res) => {
 
 export const search = async (req, res)=> {
     const {query: {term: searchingBy}} = req;
-    const videos = await Video.find({title:{$regex:searchingBy,$options:"i"}});
+    const videos = await Video.find(
+        {$or:[
+            {"title":{$regex:searchingBy,$options:"i"}},
+            {"place":{$regex:searchingBy,$options:"i"}}
+        ]}
+    )
     res.render("search",{pageTitle: "Search",searchingBy, videos})
     };
 export const getUpload = (req, res)=> {
@@ -103,10 +110,17 @@ export const videoDetail = async(req, res)=> {
                             .populate({
                                 path: "comments",
                                 populate: {
-                               path: "creator"
-                                }
-                              });
-                         
+                                    path: "creator",
+                                },
+                              })
+                             .populate({
+                                path: "comments",
+                                populate: 
+                                    {path: "childrenComment",
+                                    populate:"creator"},
+                                    
+                              })
+        console.log(video.comments)
         res.render("videoDetail",{pageTitle:video.title,video});
     } catch(error) {
         console.log(error);
@@ -143,13 +157,45 @@ export const postDeleteComment = async(req,res)=>{
     }
 }
 
+
+
+//`/api/${videoId}/${commentId}/recomment`,
+export const postAddReplyComment = async(req,res)=>{
+    const {
+        params:{id,comment_id:commetID},
+        body:{comment:replayText},
+        user
+    } = req;
+    if(req.user===undefined){
+        alert('로그인이 필요합니다.')
+    }
+    else {
+        try{
+            const video = await Video.findById(id);
+            const replayComment = await ReplyComment.create({
+                text: replayText,
+                creator:user.id,
+            })
+            const comment = await Comment.findById(commetID);
+            comment.childrenComment.push(replayComment.id);
+            comment.save();
+            video.save();
+        }
+        catch(error){
+            res.status(400);
+        }
+        finally{
+            res.end();
+        }
+    }
+}
+
 export const postAddComment = async(req,res)=>{
     const {
         params:{id},
         body:{comment},
         user
     } = req;
-    console.log(user)
     if(req.user===undefined){
         alert('로그인이 필요합니다.')
     }
@@ -158,7 +204,8 @@ export const postAddComment = async(req,res)=>{
             const video = await Video.findById(id);
             const newComment = await Comment.create({
                 text:comment,
-                creator:user.id
+                creator:user.id,
+                childrenComment:[]
             })
             video.comments.push(newComment.id);
             video.save();
@@ -169,5 +216,5 @@ export const postAddComment = async(req,res)=>{
         finally{
             res.end();
         }
-}
+    }
 }

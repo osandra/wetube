@@ -17,7 +17,7 @@ const multerVideo = multer({
     bucket: "wetube12/videos",
     key: function (req, file, cb) {
         let extension = path.extname(file.originalname);
-        cb(null,Math.random().toString(36).substring(2, 12) + Date.now().toString() + extension);
+        cb(null,Math.random().toString(36).substring(2, 12) + Date.now().toString() + extension.toLowerCase());
         },
   })
 });

@@ -73,7 +73,6 @@ export const postEditVideo = async (req, res)=> {
     }=req;
     try {
         await Video.findOneAndUpdate({_id:id},{title,description,place});
-        console.log(`${title},${description},${place}`)
         res.redirect(routes.videoDetail(id));
     }
     catch(error){
@@ -117,10 +116,8 @@ export const videoDetail = async(req, res)=> {
                                 path: "comments",
                                 populate: 
                                     {path: "childrenComment",
-                                    populate:"creator"},
-                                    
+                                    populate:"creator"},                     
                               })
-        console.log(video.comments)
         res.render("videoDetail",{pageTitle:video.title,video});
     } catch(error) {
         console.log(error);

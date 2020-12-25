@@ -1,5 +1,3 @@
-import getBlobDuration from "get-blob-duration";
-
 const videoContainer = document.getElementById("jsVideoPlayer");
 const VideoPlayer = document.querySelector("#jsVideoPlayer video");
 const playBtn = document.getElementById("jsPlayButton");
@@ -11,7 +9,6 @@ const volumeControl = document.getElementById("jsVolume");
 const controls = document.getElementById("controls");
 const timerBar = document.querySelector(".custom-seekbar");
 const timebarSpan = timerBar.querySelector(".show-time")
-
 
 function handlePlayButton(){
     if(VideoPlayer.paused){
@@ -82,19 +79,7 @@ function goFullScreen(){
     videoContainer.requestFullscreen();
     screenBtn.addEventListener("click",exitFullSreen);
 }
-function handleDrag(event){
-    const {
-        target:{ value }
-    } = event;
-    VideoPlayer.volume = value;
-    if(value>=0.6){
-        volumnBtn.innerHTML=`<i class="fas fa-volume-up"></i>`;
-    } else if (value>=0.2){
-        volumnBtn.innerHTML=`<i class="fas fa-volume-down"></i>`;
-    } else{
-        volumnBtn.innerHTML=`<i class="fas fa-volume-off"></i>`;
-    }
-}
+
 const registerView = ()=>{
     const videoId = window.location.href.split("/videos/")[1];
     fetch(`/api/${videoId}/view`,{method:"POST"});
@@ -138,28 +123,34 @@ const handleTimeChange = e=>{
  VideoPlayer.currentTime = videoTime;
 }
 
+const handleVolumnInput = (event)=>{
+    event.preventDefault();
+    const newVolume = event.currentTarget.value;
+    VideoPlayer.volume = newVolume;
+    if(newVolume>=0.6){
+        volumnBtn.innerHTML=`<i class="fas fa-volume-up"></i>`;
+    } else if (newVolume>=0.2){
+        volumnBtn.innerHTML=`<i class="fas fa-volume-down"></i>`;
+    } else{
+        volumnBtn.innerHTML=`<i class="fas fa-volume-off"></i>`;
+    }
+}
 
 function init(){
-    VideoPlayer.volume=0.5;
     videoButtonInit();
     document.addEventListener("keydown",handleKeyDown);
-
     playBtn.addEventListener("click",handlePlayButton);
     videoContainer.addEventListener("mousemove",showControls);
     videoContainer.addEventListener("mouseleave",hideControls);
     timerBar.addEventListener("click",handleTimeChange);
-    volumeControl.addEventListener("input",handleDrag);
+    volumeControl.addEventListener("change",handleVolumnInput);
     volumnBtn.addEventListener("click",handleVolumnButton);
     screenBtn.addEventListener("click",goFullScreen);
-
     VideoPlayer.addEventListener("timeupdate", handleTimeUpdate);
-    //
     VideoPlayer.addEventListener("loadeddata",setTotalTime);
-    //VideoPlayer.addEventListener("loadedmetadata",setTotalTime);
     VideoPlayer.addEventListener("ended", handleEnded);
 };
 
 if(videoContainer){
     init()
 };
-

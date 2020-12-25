@@ -35,11 +35,10 @@
       }
     }
     .videoPlayer__volume {
-      position: absolute;
       padding: 0;
       opacity: 1;
       width: 80px;
-      z-index: 10;
+      position: absolute;
       transform: rotate(-90deg);
       left: -25px;
       top: -60px;

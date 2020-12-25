@@ -6,10 +6,20 @@
   }
   .info{
     .info_first{
+      display: flex;
+      flex-direction: row;
+      .avatar-url{
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+      }
       .videoBlock__title {
         font-weight: 500;
         font-size: 16px;
         margin-bottom: 4px;
+        margin-left: 10px;
+        height: 30px;
+        line-height: 30px;
       }
     }
   .videoBlock__creator-name{

@@ -24,21 +24,5 @@
       overflow: hidden;
       width: 100%;
     }
-    .info{  
-      .info_first{  
-        display: flex;
-        flex-direction: row;
-        .avatar-url{
-          border-radius: 50%;
-          width: 30px;
-          height: 30px;
-        }
-        .videoBlock__title{
-          margin-left: 10px;
-          height: 30px;
-          line-height: 30px;
-        }
-    }  
-    }
   }
 }

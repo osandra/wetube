@@ -9,7 +9,6 @@ const alert = require('alert');
 export const home = async(req,res) => {
     try{
         const videos = await Video.find({}).populate("creator").sort( { views: -1 } );
-        console.log(videos);
         res.render("home",{pageTitle: "Home",videos});
     } 
     catch(error){
@@ -25,7 +24,7 @@ export const search = async (req, res)=> {
             {"title":{$regex:searchingBy,$options:"i"}},
             {"place":{$regex:searchingBy,$options:"i"}}
         ]}
-    )
+    ).populate("creator")
     res.render("search",{pageTitle: "Search",searchingBy, videos})
     };
 export const getUpload = (req, res)=> {

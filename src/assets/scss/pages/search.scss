@@ -14,7 +14,16 @@
         border-bottom: 2px solid #e1e2e3;
     }
     .search__videos{
+        .info{
+            max-width: 300px;
+            margin: 0 auto;
+            margin-bottom: 30px;
+            padding: 10px 0;
+            border-bottom: 1px solid #e1e2e3;
+        }
+        video{
+        max-height: 200px;
         width: 100%;
-        text-align: center;
+        }
     }
 }

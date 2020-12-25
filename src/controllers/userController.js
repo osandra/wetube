@@ -161,7 +161,6 @@ export const users = (req, res) => res.render("users",{pageTitle: "Users"});
 export const getEditProfile = (req, res) => 
 res.render("editProfile",{pageTitle: "Edit Profile"});
 export const postEditProfile = async(req,res)=>{
-    // console.log(req);
     const{
         user: { _id: id },
         body:{name,email},
@@ -172,7 +171,6 @@ export const postEditProfile = async(req,res)=>{
     avataUrl:file?file.location:req.user.avataUrl})
     req.flash("success","Profile updated!")
     res.redirect(routes.me);
-    //console.log(User);
     } catch(error){
         req.flash("error","Can't update profile")
         console.log(`error is ${error}`)
@@ -206,9 +204,13 @@ export const userDetail = async(req, res) => {
     } = req;
     try{
         const user = await User.findById(id)
-                                .populate("videos");
+                                    .populate({
+                                        path: "videos",
+                                        populate: {
+                                            path: "creator",
+                                        },
+                                    });
         res.render("userDetail",{pageTitle: "User Detail", user})
-        //console.log(user.videos)
     }
     catch(error){
         console.log(error);
@@ -222,7 +224,6 @@ export const getMeProfile = async (req,res) =>{
         const user = await User.findById(userId)
                                 .populate("videos");
         res.render("userDetail",{pageTitle: "User Detail", user})
-        //console.log(user.videos)
     }
     catch(error){
         console.log(error);

@@ -128,7 +128,7 @@
                 .replyText{
                   padding-left:13px;
                   display: absolute;
-                  max-width: 150px;
+                  max-width: 350px;
                   right: 79px;
                   top:10px;
                   border:none;
@@ -167,6 +167,10 @@
             }
             #replyText{
               padding-left: 5px;
+              &:hover{
+                color:#246e87;
+              }
+              margin-bottom: 10px;
             }
             .none {            
               display: none;

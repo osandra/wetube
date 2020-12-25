@@ -5,7 +5,10 @@ header.header
                 i.fab.fa-youtube
         .header_column
             form(action=routes.search, method="get")
-                input(type="text", placeholder="Seach by term", name= "term")
+                input(type="text", placeholder="검색", name= "term")
+                button.searchButton
+                    i.fas.fa-search
+                    
         .header_column
             ul
                 if !loggedUser

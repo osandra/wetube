@@ -19,9 +19,8 @@ block content
             else 
                 span.video__views #{video.views} views
             .video__author
-                if loggedUser
-                    |Uploaded by 
-                    a(href=routes.userDetail(video.creator._id))=video.creator.name
+                |Uploaded by 
+                a(href=routes.userDetail(video.creator._id))=video.creator.name
         .video__comments
             if video.comments.length ===1
                 span.video__comment-number#jsCommentNumber 1
@@ -57,14 +56,14 @@ block content
                                             li.replycomment__area
                                                 div.replyText
                                                     span.replyAvatar
-                                                        if loggedUser && replyComment.creator.avataUrl != undefined
-                                                            a(href=routes.userDetail(replyComment.creator._id))
+                                                        if replyComment.creator.avataUrl != undefined
+                                                            a(href=routes.userDetail(replyComment.creator.id))
                                                                 img.user-avatar(src=replyComment.creator.avataUrl img-src *)
-                                                        if loggedUser && replyComment.creator.avataUrl == undefined
-                                                            a(href=routes.userDetail(replyComment.creator._id))
+                                                        if replyComment.creator.avataUrl == undefined
+                                                            a(href=routes.userDetail(replyComment.creator.id))
                                                                 img.user-avatar(src="https://wetube12.s3.ap-northeast-2.amazonaws.com/default.jpg")
                                                     span.replyCreator
-                                                        a(href=routes.userDetail(replyComment.creator._id))
+                                                        a(href=routes.userDetail(replyComment.creator.id))
                                                             span #{replyComment.creator.name}
                                                     span.replyText #{replyComment.text}
                                                     if loggedUser && loggedUser.id === replyComment.creator.id

@@ -1,12 +1,27 @@
 .videoBlock {
   video {
     margin-bottom: 10px;
-    min-height: 300px;
-    height: 100%;
+    min-height: 200px;
+    width: 100%;
   }
-  .videoBlock__title {
-    font-size: 18px;
-    font-weight: 300;
-    margin-bottom: 10px;
+  .info{
+    .info_first{
+      .videoBlock__title {
+        font-weight: 500;
+        font-size: 16px;
+        margin-bottom: 4px;
+      }
+    }
+  .videoBlock__creator-name{
+    color:#606060;
+    margin-left:40px;
+    margin-bottom: 2px;
+    font-size: 12px;
+  }
+    .videoBlock__views{
+      color:#606060;
+      margin-left:40px;
+      font-size: 10px;
+    }
   }
 }

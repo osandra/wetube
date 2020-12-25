@@ -8,7 +8,8 @@ const alert = require('alert');
 
 export const home = async(req,res) => {
     try{
-        const videos = await Video.find({}).sort( { views: -1 } )
+        const videos = await Video.find({}).populate("creator").sort( { views: -1 } );
+        console.log(videos);
         res.render("home",{pageTitle: "Home",videos});
     } 
     catch(error){
